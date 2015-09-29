@@ -1,0 +1,3 @@
+[submodule "library/src/main/java/com/netural/loco/base"]
+	path = library/src/main/java/com/netural/loco/base
+	url = /Users/stephan.schober/Dev/git/LocoBase
