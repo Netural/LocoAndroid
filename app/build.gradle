@@ -10,6 +10,8 @@ android {
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+
+        buildConfigField "String", "LOCO_KEY", "\"688e7dc4367b79859fd48a392fecc935\""
     }
     buildTypes {
         release {

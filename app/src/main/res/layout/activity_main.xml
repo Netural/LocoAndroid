@@ -10,20 +10,22 @@
   tools:context=".MainActivity">
 
   <com.netural.loco.library.LocoTextView
-    android:id="@+id/text1"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content" />
-
-  <com.netural.loco.library.LocoTextView
-    android:id="@+id/text2"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Hello world!" />
-
-  <com.netural.loco.library.LocoTextView
-    android:id="@+id/text3"
+    android:id="@+id/text"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:text="@string/hello_world" />
+
+  <com.netural.loco.library.LocoTextView
+    android:id="@+id/info"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="16dp" />
+
+  <Button
+    android:id="@+id/button"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="16dp"
+    android:text="Reload now" />
 
 </LinearLayout>

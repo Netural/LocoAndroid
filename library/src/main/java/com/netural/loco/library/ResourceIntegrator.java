@@ -19,13 +19,13 @@ public class ResourceIntegrator {
     }
 
     public CharSequence getText(int id, CharSequence def) {
-        String text = LocoManager.getInstance().getText(rContext.getResources().getResourceEntryName(id), rLanguage);
+        String text = LocoManager.getText(rContext.getResources().getResourceEntryName(id));
         return text == null ? rBase.getText(id) : text;
     }
 
     public CharSequence getText(int id)
             throws Resources.NotFoundException {
-        String text = LocoManager.getInstance().getText(rContext.getResources().getResourceEntryName(id), rLanguage);
+        String text = LocoManager.getText(rContext.getResources().getResourceEntryName(id));
         return text == null ? rBase.getText(id) : text;
     }
 
