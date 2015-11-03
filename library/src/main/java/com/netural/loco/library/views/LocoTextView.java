@@ -7,28 +7,28 @@ import android.os.Build;
 import android.util.AttributeSet;
 import android.widget.TextView;
 
-import com.netural.loco.library.LocoResourceContext;
+import com.netural.loco.library.LocoContextWrapper;
 
 public class LocoTextView extends TextView {
 
     public LocoTextView(Context context) {
-        super(new LocoResourceContext(context));
+        super(LocoContextWrapper.wrap(context));
         init(getContext(), null);
     }
 
     public LocoTextView(Context context, AttributeSet attrs) {
-        super(new LocoResourceContext(context), attrs);
+        super(LocoContextWrapper.wrap(context), attrs);
         init(getContext(), attrs);
     }
 
     public LocoTextView(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(new LocoResourceContext(context), attrs, defStyleAttr);
+        super(LocoContextWrapper.wrap(context), attrs, defStyleAttr);
         init(getContext(), attrs);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public LocoTextView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(new LocoResourceContext(context), attrs, defStyleAttr, defStyleRes);
+        super(LocoContextWrapper.wrap(context), attrs, defStyleAttr, defStyleRes);
         init(getContext(), attrs);
     }
 

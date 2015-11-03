@@ -15,6 +15,12 @@
     android:layout_height="wrap_content"
     android:text="@string/hello_world" />
 
+  <TextView
+    android:id="@+id/text_normal"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/hello_world" />
+
   <com.netural.loco.library.views.LocoTextView
     android:id="@+id/info"
     android:layout_width="wrap_content"

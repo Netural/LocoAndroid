@@ -1,11 +1,13 @@
 package com.netural.locoandroid;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
 import com.netural.loco.library.LocoManager;
+import com.netural.loco.library.LocoContextWrapper;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,7 +37,15 @@ public class MainActivity extends AppCompatActivity {
         final TextView testText = (TextView) findViewById(R.id.text);
         testText.invalidate();
 
+        final TextView normalText = (TextView) findViewById(R.id.text_normal);
+        normalText.invalidate();
+
         TextView infoText = (TextView) findViewById(R.id.info);
         infoText.setText(LocoManager.getInstance().getInfo().toString());
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(LocoContextWrapper.wrap(newBase));
     }
 }
