@@ -10,6 +10,7 @@ import com.netural.loco.base.LocoLibrary;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Locale;
 
 public class LocoManager {
     private static final String TAG = LocoManager.class.getSimpleName();
@@ -36,6 +37,10 @@ public class LocoManager {
         return ourInstance.getTextIntern(id);
     }
 
+    public void init(final Context context, String key, final Locale locale) {
+        init(context, key, locale.getLanguage());
+    }
+
     public void init(final Context context, String key, final String locale) {
         this.locoLibrary = new LocoLibrary(key);
         this.context = context;
@@ -52,8 +57,12 @@ public class LocoManager {
         new InitLocoTask(path, locale, setLanguage, null).execute();
     }
 
-    public void reload(OnLanguageLoadedListener listener) {
-        new InitLocoTask(path, null, true, listener).execute();
+    public void reload(Locale locale, OnLanguageLoadedListener listener) {
+        reload(locale.getLanguage(), listener);
+    }
+
+    public void reload(String locale, OnLanguageLoadedListener listener) {
+        new InitLocoTask(path, locale, true, listener).execute();
     }
 
     public LocoInfo getInfo() {
