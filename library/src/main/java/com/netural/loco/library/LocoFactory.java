@@ -30,6 +30,7 @@ class LocoFactory {
             if (resourceId == 0) {
                 return;
             }
+            view.setTag(R.id.loco_text_id, resourceId);
             ((TextView) view).setText(context.getResources().getString(resourceId));
         }
     }

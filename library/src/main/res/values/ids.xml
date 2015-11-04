@@ -2,4 +2,6 @@
 <resources>
   <item name="loco_tag_id"
     type="id" />
+  <item name="loco_text_id"
+    type="id" />
 </resources>
