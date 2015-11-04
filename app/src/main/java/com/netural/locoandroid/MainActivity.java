@@ -4,10 +4,14 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.netural.loco.library.LocoManager;
 import com.netural.loco.library.LocoContextWrapper;
+import com.netural.loco.library.LocoManager;
+import com.netural.loco.library.LocoUtils;
+
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,10 +27,11 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         LocoManager.getInstance().reload(
+                                Locale.getDefault(),
                                 new LocoManager.OnLanguageLoadedListener() {
                                     @Override
                                     public void onLanguageLoaded() {
-                                        updateView();
+                                        LocoUtils.reloadTextViews((ViewGroup) findViewById(android.R.id.content));
                                     }
                                 });
                     }
@@ -34,12 +39,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateView() {
-        final TextView testText = (TextView) findViewById(R.id.text);
-        testText.invalidate();
-
-        final TextView normalText = (TextView) findViewById(R.id.text_normal);
-        normalText.invalidate();
-
         TextView infoText = (TextView) findViewById(R.id.info);
         infoText.setText(LocoManager.getInstance().getInfo().toString());
     }

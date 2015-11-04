@@ -13,6 +13,6 @@ public class LocoApplication extends Application {
         super.onCreate();
 
         LocoManager locoManager = LocoManager.getInstance();
-        locoManager.init(this, BuildConfig.LOCO_KEY, Locale.getDefault().getLanguage());
+        locoManager.init(this, BuildConfig.LOCO_KEY, Locale.getDefault());
     }
 }
