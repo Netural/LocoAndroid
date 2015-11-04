@@ -3,6 +3,7 @@ package com.netural.loco.library;
 import android.content.res.AssetManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.support.annotation.NonNull;
 import android.util.DisplayMetrics;
 
 public class LocoResources extends Resources {
@@ -12,6 +13,18 @@ public class LocoResources extends Resources {
     public LocoResources(AssetManager assets, DisplayMetrics metrics, Configuration config, ResourceIntegrator ri) {
         super(assets, metrics, config);
         this.ri = ri;
+    }
+
+    @NonNull
+    @Override
+    public String getString(int id) throws NotFoundException {
+        return ri == null ? super.getString(id) : ri.getText(id).toString();
+    }
+
+    @NonNull
+    @Override
+    public String getString(int id, Object... formatArgs) throws NotFoundException {
+        return ri == null ? super.getString(id, formatArgs) : ri.getText(id).toString();
     }
 
     @Override
