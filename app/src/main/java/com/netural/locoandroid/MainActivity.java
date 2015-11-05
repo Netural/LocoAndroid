@@ -11,8 +11,6 @@ import com.netural.loco.library.LocoContextWrapper;
 import com.netural.loco.library.LocoManager;
 import com.netural.loco.library.LocoUtils;
 
-import java.util.Locale;
-
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -27,7 +25,6 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         LocoManager.getInstance().reload(
-                                Locale.getDefault(),
                                 new LocoManager.OnLanguageLoadedListener() {
                                     @Override
                                     public void onLanguageLoaded() {

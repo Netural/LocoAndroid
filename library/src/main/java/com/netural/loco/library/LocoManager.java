@@ -10,15 +10,14 @@ import com.netural.loco.base.LocoLibrary;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Locale;
 
 public class LocoManager {
     private static final String TAG = LocoManager.class.getSimpleName();
 
     private static LocoManager ourInstance = new LocoManager();
-    private Context context;
-    private String path;
+    private LocoConfig locoConfig;
     private LocoLibrary locoLibrary;
+    private LocoInfo locoInfo;
 
     private HashMap<String, String> language = new HashMap<>();
 
@@ -29,44 +28,43 @@ public class LocoManager {
         return ourInstance;
     }
 
-    public static String getText(int id) {
-        return ourInstance.getTextIntern(id);
+    public static String getText(Context context, int id) {
+        return ourInstance.getTextIntern(context, id);
     }
 
     public static String getText(String id) {
         return ourInstance.getTextIntern(id);
     }
 
-    public void init(final Context context, String key, final Locale locale) {
-        init(context, key, locale.getLanguage());
+    public void init() {
+        init(LocoConfig.get());
     }
 
-    public void init(final Context context, String key, final String locale) {
-        this.locoLibrary = new LocoLibrary(key);
-        this.context = context;
-        this.path = context.getFilesDir().getAbsolutePath();
+    public void init(LocoConfig locoConfig) {
+        this.locoConfig = locoConfig;
 
-        File languageFile = locoLibrary.getLanguageFile(path, locale);
+        this.locoLibrary = new LocoLibrary(locoConfig.getApiKey());
+
+        File languageFile = locoLibrary.getLanguageFile(locoConfig.getPath(), locoConfig.getLanguage());
         boolean setLanguage = true;
         if (languageFile != null) {
             setLanguage = false;
         }
 
-        language = locoLibrary.getLanguage(path, locale);
+        language = locoLibrary.getLanguage(locoConfig.getPath(), locoConfig.getLanguage());
 
-        new InitLocoTask(path, locale, setLanguage, null).execute();
+        new InitLocoTask(locoConfig.getPath(), locoConfig.getLanguage(), setLanguage, null).execute();
     }
 
-    public void reload(Locale locale, OnLanguageLoadedListener listener) {
-        reload(locale.getLanguage(), listener);
-    }
-
-    public void reload(String locale, OnLanguageLoadedListener listener) {
-        new InitLocoTask(path, locale, true, listener).execute();
+    public void reload(OnLanguageLoadedListener listener) {
+        new InitLocoTask(locoConfig.getPath(), locoConfig.getLanguage(), true, listener).execute();
     }
 
     public LocoInfo getInfo() {
-        return locoLibrary.getInfo(path);
+        if (locoInfo == null) {
+            locoInfo = locoLibrary.getInfo(locoConfig.getPath());
+        }
+        return locoInfo;
     }
 
     private String getTextIntern(String id) {
@@ -74,7 +72,7 @@ public class LocoManager {
         return language.containsKey(id) ? language.get(id) : id;
     }
 
-    private String getTextIntern(int id) {
+    private String getTextIntern(Context context, int id) {
         String textId = context.getResources().getResourceEntryName(id);
         Log.v(TAG, "get String for id " + textId);
         return language.containsKey(textId) ? language.get(textId) : textId;
@@ -104,10 +102,16 @@ public class LocoManager {
 
         protected HashMap<String, String> doInBackground(Void... voids) {
 
+            LocoInfo info = getInfo();
+            if (info != null && ((info.lastUpdate.getTime() + locoConfig.getRefreshTime()) < System.currentTimeMillis())) {
+                Log.i(TAG, "language file is up to date");
+                return null;
+            }
             try {
                 locoLibrary.loadUnzipAndSaveAll(path);
             } catch (IOException e) {
                 Log.e(TAG, "could not load language zip file", e);
+                return null;
             }
 
             return locoLibrary.getLanguage(path, locale);
@@ -115,10 +119,11 @@ public class LocoManager {
 
         @Override
         protected void onPostExecute(HashMap<String, String> result) {
-            if (setLanguage) {
+            if (setLanguage && result != null) {
                 language = result;
+                locoInfo = null;
             }
-            if (listener != null) {
+            if (listener != null && result != null) {
                 listener.onLanguageLoaded();
             }
         }
