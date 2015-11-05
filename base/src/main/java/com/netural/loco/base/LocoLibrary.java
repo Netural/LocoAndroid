@@ -21,6 +21,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
+import java.util.TimeZone;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -394,7 +395,8 @@ public class LocoLibrary {
                     }
                     if (key.contains("exported at")) {
                         try {
-                            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EE, d MMM y hh:mm:ss Z", Locale.ENGLISH);
+                            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EE, d MMM y HH:mm:ss Z", Locale.ENGLISH);
+                            simpleDateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
                             lastUpdate = simpleDateFormat.parse(value);
                         } catch (ParseException e) {
                             System.out.println(e.getLocalizedMessage());

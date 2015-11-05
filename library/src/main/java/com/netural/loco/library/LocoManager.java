@@ -103,7 +103,7 @@ public class LocoManager {
         protected HashMap<String, String> doInBackground(Void... voids) {
 
             LocoInfo info = getInfo();
-            if (info != null && ((info.lastUpdate.getTime() + locoConfig.getRefreshTime()) < System.currentTimeMillis())) {
+            if (info != null && ((info.lastUpdate.getTime() + locoConfig.getRefreshTime()) > System.currentTimeMillis())) {
                 Log.i(TAG, "language file is up to date");
                 return null;
             }
