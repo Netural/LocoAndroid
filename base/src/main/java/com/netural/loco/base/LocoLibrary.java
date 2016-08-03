@@ -32,8 +32,8 @@ import org.xml.sax.SAXException;
  */
 public class LocoLibrary {
 
-    protected static final String LOCO_URL = "https://localise.biz:443/api/";
-    protected static final String LOCO_LOCALES = "locales";
+    // protected static final String LOCO_URL = "https://localise.biz:443/api/";
+    // protected static final String LOCO_LOCALES = "locales";
     protected static final String LOCO_TRANSLATIONS = "translations/";
     protected static final String LOCO_EXPORT = "export/";
     protected static final String LOCO_ARCHIVE = "archive/";
@@ -47,9 +47,13 @@ public class LocoLibrary {
     protected static final String LOCO_FALLBACK = "fallback";
     private static final int DEFAULT_BUFFER_SIZE = 1024;
     private String apiKeyFromLoco;
+    private String baseUrl;
+    private String localesUrl;
 
-    public LocoLibrary(String apiKeyFromLoco) {
+    public LocoLibrary(String apiKeyFromLoco, String baseUrl, String localesUrl) {
         this.setApiKeyFromLoco(apiKeyFromLoco);
+        this.setBaseUrl(baseUrl);
+        this.setLocalesUrl(localesUrl);
     }
 
     public String getApiKeyFromLoco() {
@@ -59,6 +63,24 @@ public class LocoLibrary {
     public void setApiKeyFromLoco(String apiKeyFromLoco) {
         this.apiKeyFromLoco = apiKeyFromLoco;
     }
+
+    public void setBaseUrl(String baseUrl) {
+        this.baseUrl = baseUrl;
+    }
+
+    public String getBaseUrl() {
+        return baseUrl;
+    }
+
+    public void setLocalesUrl(String localesUrl) {
+        this.localesUrl = localesUrl;
+    }
+
+    public String getLocalesUrl() {
+        return localesUrl;
+    }
+
+
 
     // ------------------------------------------
     // PUBLIC METHODS
@@ -207,42 +229,42 @@ public class LocoLibrary {
 
     private String getURLExportArchiveXML() {
         // e.g.: https://localise.biz:443/api/export/archive/xml.zip?key=1234
-        String url = LOCO_URL + LOCO_EXPORT + LOCO_ARCHIVE + LOCO_FORMAT_XML + LOCO_ZIP + "?" + LOCO_KEY + this.apiKeyFromLoco;
+        String url = baseUrl + LOCO_EXPORT + LOCO_ARCHIVE + LOCO_FORMAT_XML + LOCO_ZIP + "?" + LOCO_KEY + this.apiKeyFromLoco;
 
         return url;
     }
 
     private String getURLLocales() {
         // e.g.: https://localise.biz:443/api/locales?key=1234
-        String url = LOCO_URL + LOCO_LOCALES + "?" + LOCO_KEY + this.apiKeyFromLoco;
+        String url = baseUrl + localesUrl + "?" + LOCO_KEY + this.apiKeyFromLoco;
 
         return url;
     }
 
     private String getURLTranslations(String id) {
         // e.g.: https://localise.biz:443/api/translations/loginLoginBtn.json?key=1234
-        String url = LOCO_URL + LOCO_TRANSLATIONS + id + LOCO_JSON + "?" + LOCO_KEY + this.apiKeyFromLoco;
+        String url = baseUrl + LOCO_TRANSLATIONS + id + LOCO_JSON + "?" + LOCO_KEY + this.apiKeyFromLoco;
 
         return url;
     }
 
     private String getURLTranslations(String id, String locale) {
         // e.g.: https://localise.biz:443/api/translations/Auto2/es?key=3de2799e82f9bce408a61d9152a6c7d0
-        String url = LOCO_URL + LOCO_TRANSLATIONS + id + "/" + locale + "?" + LOCO_KEY + this.apiKeyFromLoco;
+        String url = baseUrl + LOCO_TRANSLATIONS + id + "/" + locale + "?" + LOCO_KEY + this.apiKeyFromLoco;
 
         return url;
     }
 
     private String getURLAssets() {
         // e.g.: https://localise.biz:443/api/assets?key=1234
-        String url = LOCO_URL + LOCO_ASSETS + "?" + LOCO_KEY + this.apiKeyFromLoco;
+        String url = baseUrl + LOCO_ASSETS + "?" + LOCO_KEY + this.apiKeyFromLoco;
 
         return url;
     }
 
     private String getURLImport(String locale) {
         // e.g.: https://localise.biz:443/api/import/xml?locale=es&key=1234
-        String url = LOCO_URL + LOCO_IMPORT + LOCO_FORMAT_XML + "?" + LOCO_LOCALE + locale + "&" + LOCO_KEY + this.apiKeyFromLoco;
+        String url = baseUrl + LOCO_IMPORT + LOCO_FORMAT_XML + "?" + LOCO_LOCALE + locale + "&" + LOCO_KEY + this.apiKeyFromLoco;
 
         return url;
     }
@@ -411,4 +433,6 @@ public class LocoLibrary {
 
         return new LocoInfo(project, release, lastUpdate);
     }
+
+
 }

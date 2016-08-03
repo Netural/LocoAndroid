@@ -1,5 +1,6 @@
 package com.netural.loco.library;
 
+import java.util.List;
 import java.util.Locale;
 
 public class LocoConfig {
@@ -11,6 +12,9 @@ public class LocoConfig {
     private Locale mLocale;
     private long mRefreshTime;
     private String mApiKey;
+    private String mBaseUrl;
+    private String mLocalesUrl;
+    private List<String> mParams;
 
     protected LocoConfig(Builder builder) {
         mLanguage = builder.language;
@@ -18,6 +22,9 @@ public class LocoConfig {
         mLocale = builder.locale;
         mRefreshTime = builder.refreshTime;
         mApiKey = builder.apiKey;
+        mBaseUrl = builder.baseUrl;
+        mLocalesUrl = builder.localesUrl;
+        mParams = builder.params;
     }
 
     public static void initDefault(LocoConfig locoConfig) {
@@ -51,6 +58,16 @@ public class LocoConfig {
         return mApiKey;
     }
 
+    public String getBaseUrl() {
+        return mBaseUrl;
+    }
+
+    public String getLocalesUrl() {
+        return mLocalesUrl;
+    }
+
+
+
     public static class Builder {
 
         private String path = null;
@@ -58,6 +75,9 @@ public class LocoConfig {
         private Locale locale = Locale.getDefault();
         private long refreshTime = 3600000; // 1 hour
         private String apiKey = null;
+        private String baseUrl = null;
+        private String localesUrl = null;
+        private List<String> params = null;
 
         /**
          * The use of this method is not recommended, use @setLocale instead
@@ -94,8 +114,25 @@ public class LocoConfig {
             return this;
         }
 
+        public Builder setBaseUrl(String baseUrl) {
+            this.baseUrl = baseUrl;
+            return this;
+        }
+
+        public Builder setAdditionalParameters(List<String> params) {
+            this.params = params;
+            return this;
+        }
+
+        public Builder setLocalesUrl(String localesUrl) {
+            this.localesUrl = localesUrl;
+            return this;
+        }
+
         public LocoConfig build() {
             return new LocoConfig(this);
         }
+
+
     }
 }
