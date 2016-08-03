@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.netural.loco.base.LocoInfo;
 import com.netural.loco.library.LocoContextWrapper;
 import com.netural.loco.library.LocoManager;
 import com.netural.loco.library.LocoUtils;
@@ -37,7 +38,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateView() {
         TextView infoText = (TextView) findViewById(R.id.info);
-        infoText.setText(LocoManager.getInstance().getInfo().toString());
+        LocoInfo info = LocoManager.getInstance().getInfo();
+        if (info != null) {
+            infoText.setText(info.toString());
+        }
     }
 
     @Override

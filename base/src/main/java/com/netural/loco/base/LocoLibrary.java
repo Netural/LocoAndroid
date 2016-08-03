@@ -22,6 +22,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.TimeZone;
+import java.util.concurrent.SynchronousQueue;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -336,18 +337,22 @@ public class LocoLibrary {
     }
 
     public HashMap<String, String> getLanguage(String path, String locale) {
-        HashMap<String, String> language = null;
+        HashMap<String, String> language = new HashMap<>();
 
         File languageFile = getLanguageFile(path, locale);
 
-        try {
-            language = XMLAndroidParser.parseFile(languageFile.getAbsolutePath());
-        } catch (SAXException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
+        if (languageFile != null) {
+            try {
+                language = XMLAndroidParser.parseFile(languageFile.getAbsolutePath());
+            } catch (SAXException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (ParserConfigurationException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("no file found for parsing at path: " + path + " with locale " + locale);
         }
 
         return language;
@@ -429,6 +434,7 @@ public class LocoLibrary {
             br.close();
         } catch (IOException e) {
             System.out.println(e.getLocalizedMessage());
+            return null;
         }
 
         return new LocoInfo(project, release, lastUpdate);
