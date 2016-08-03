@@ -17,6 +17,7 @@ public class LocoApplication extends Application {
                 new LocoConfig.Builder()
                         .setBaseUrl("https://cacheproxy.netural.com/")
                         .setLocalesUrl("locales")
+                        .setRefreshTime(-1) // no delay
                         .setAdditionalParameters(null)
                         .setLocale(Locale.getDefault())
                         .setPath(getFilesDir().getAbsolutePath())
