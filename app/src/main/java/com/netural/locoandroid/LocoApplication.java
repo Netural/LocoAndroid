@@ -15,6 +15,7 @@ public class LocoApplication extends Application {
 
         LocoConfig.initDefault(
                 new LocoConfig.Builder()
+                        .setRefreshTime(-1) // no delay
                         .setLocale(Locale.getDefault())
                         .setPath(getFilesDir().getAbsolutePath())
                         .setApiKey(BuildConfig.LOCO_KEY).build());
