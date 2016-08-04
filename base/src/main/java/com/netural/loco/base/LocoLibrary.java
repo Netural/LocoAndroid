@@ -336,7 +336,7 @@ public class LocoLibrary {
 
     }
 
-    public HashMap<String, String> getLanguage(String path, String locale) {
+    public HashMap<String, String> getLanguageFromFile(String path, String locale) {
         HashMap<String, String> language = new HashMap<>();
 
         File languageFile = getLanguageFile(path, locale);
@@ -354,7 +354,6 @@ public class LocoLibrary {
         } else {
             System.out.println("no file found for parsing at path: " + path + " with locale " + locale);
         }
-
         return language;
     }
 

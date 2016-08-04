@@ -4,6 +4,8 @@ android {
     compileSdkVersion 23
     buildToolsVersion "23.0.1"
 
+    //  defaultPublishConfig "debug"
+
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 23
@@ -14,6 +16,11 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            minifyEnabled false
+            debuggable true
         }
     }
 }

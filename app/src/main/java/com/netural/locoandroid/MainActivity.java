@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.netural.loco.base.LocoInfo;
 import com.netural.loco.library.LocoContextWrapper;
 import com.netural.loco.library.LocoManager;

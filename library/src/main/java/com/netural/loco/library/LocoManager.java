@@ -51,7 +51,7 @@ public class LocoManager {
             setLanguage = false;
         }
 
-        language = locoLibrary.getLanguage(locoConfig.getPath(), locoConfig.getLanguage());
+        language = locoLibrary.getLanguageFromFile(locoConfig.getPath(), locoConfig.getLanguage());
 
         new InitLocoTask(locoConfig.getPath(), locoConfig.getLanguage(), setLanguage, null).execute();
     }
@@ -69,16 +69,18 @@ public class LocoManager {
 
     private String getTextIntern(String id) {
         Log.v(TAG, "get String for id " + id);
-        return language.containsKey(id) ? language.get(id) : id;
+        return language.containsKey(id) ? language.get(id) : null;
     }
 
     private String getTextIntern(Context context, int id) {
         String textId = context.getResources().getResourceEntryName(id);
         Log.v(TAG, "get String for id " + textId);
-        return language.containsKey(textId) ? language.get(textId) : textId;
+        return language.containsKey(textId) ? language.get(textId) : null;
     }
 
-    public String[] getTextArray(String id, String language) {
+    public String[] getTextArray(String id, String languageStr) {
+        // TODO: not supported in loco yet
+        Log.v(TAG, "not supported - get StringArray for id " + id);
         return null;
     }
 
@@ -114,7 +116,7 @@ public class LocoManager {
                 return null;
             }
 
-            return locoLibrary.getLanguage(path, locale);
+            return locoLibrary.getLanguageFromFile(path, locale);
         }
 
         @Override

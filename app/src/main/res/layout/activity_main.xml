@@ -15,17 +15,31 @@
     android:layout_height="wrap_content"
     android:text="@string/hello_world" />
 
+  <!-- same as above with normal textView -->
   <TextView
     android:id="@+id/text_normal"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:text="@string/hello_world" />
 
+  <TextView
+      android:id="@+id/text_hello_from_loco"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/hello_from_loco" />
+
+  <TextView
+      android:id="@+id/text_no_online_resource"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/no_online_resource" />
+
   <com.netural.loco.library.views.LocoTextView
     android:id="@+id/info"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginTop="16dp" />
+
 
   <Button
     android:id="@+id/button"
