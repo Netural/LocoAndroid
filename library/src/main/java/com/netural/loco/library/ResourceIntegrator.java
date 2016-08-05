@@ -55,11 +55,12 @@ public class ResourceIntegrator {
         String resourceEntryName = rContext.getResources().getResourceEntryName(id);
         String text = LocoManager.getText(resourceEntryName);
 
-        if (text != null) {
+        if (text != null && !text.trim().isEmpty()) {
+            // text or not empty text
             return text;
         } else {
             if (BuildConfig.DEBUG) {
-                // return resourceEntryName immediately
+                // no return resourceEntryName immediately
                 return resourceEntryName;
             } else {
                 try {

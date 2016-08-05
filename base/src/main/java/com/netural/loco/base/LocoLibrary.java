@@ -22,7 +22,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.TimeZone;
-import java.util.concurrent.SynchronousQueue;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -34,7 +33,7 @@ import org.xml.sax.SAXException;
 public class LocoLibrary {
 
     // protected static final String LOCO_URL = "https://localise.biz:443/api/";
-    // protected static final String LOCO_LOCALES = "locales";
+    protected static final String LOCO_LOCALES = "locales";
     protected static final String LOCO_TRANSLATIONS = "translations/";
     protected static final String LOCO_EXPORT = "export/";
     protected static final String LOCO_ARCHIVE = "archive/";
@@ -45,16 +44,16 @@ public class LocoLibrary {
     protected static final String LOCO_ZIP = ".zip";
     protected static final String LOCO_JSON = ".json";
     protected static final String LOCO_KEY = "key=";
-    protected static final String LOCO_FALLBACK = "fallback";
+    protected static final String LOCO_FALLBACK = "fallback=";
     private static final int DEFAULT_BUFFER_SIZE = 1024;
     private String apiKeyFromLoco;
     private String baseUrl;
-    private String localesUrl;
+    private String fallback;
 
-    public LocoLibrary(String apiKeyFromLoco, String baseUrl, String localesUrl) {
+    public LocoLibrary(String apiKeyFromLoco, String baseUrl, String fallback) {
         this.setApiKeyFromLoco(apiKeyFromLoco);
         this.setBaseUrl(baseUrl);
-        this.setLocalesUrl(localesUrl);
+        this.setFallback(fallback);
     }
 
     public String getApiKeyFromLoco() {
@@ -73,12 +72,12 @@ public class LocoLibrary {
         return baseUrl;
     }
 
-    public void setLocalesUrl(String localesUrl) {
-        this.localesUrl = localesUrl;
+    public void setFallback(String fallback) {
+        this.fallback = fallback;
     }
 
-    public String getLocalesUrl() {
-        return localesUrl;
+    public String getFallback() {
+        return fallback;
     }
 
 
@@ -231,13 +230,16 @@ public class LocoLibrary {
     private String getURLExportArchiveXML() {
         // e.g.: https://localise.biz:443/api/export/archive/xml.zip?key=1234
         String url = baseUrl + LOCO_EXPORT + LOCO_ARCHIVE + LOCO_FORMAT_XML + LOCO_ZIP + "?" + LOCO_KEY + this.apiKeyFromLoco;
-
+        if (fallback != null && !fallback.trim().isEmpty()) {
+            // append fallback info
+            url += "&" + LOCO_FALLBACK + fallback;
+        }
         return url;
     }
 
     private String getURLLocales() {
         // e.g.: https://localise.biz:443/api/locales?key=1234
-        String url = baseUrl + localesUrl + "?" + LOCO_KEY + this.apiKeyFromLoco;
+        String url = baseUrl + LOCO_LOCALES + "?" + LOCO_KEY + this.apiKeyFromLoco;
 
         return url;
     }

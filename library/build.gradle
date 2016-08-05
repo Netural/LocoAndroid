@@ -4,7 +4,8 @@ android {
     compileSdkVersion 23
     buildToolsVersion "23.0.1"
 
-    //  defaultPublishConfig "debug"
+    // uncomment to get release mode
+    defaultPublishConfig "debug"
 
     defaultConfig {
         minSdkVersion 14

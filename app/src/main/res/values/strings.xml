@@ -2,5 +2,6 @@
   <string name="app_name">LocoAndroid</string>
   <string name="hello_world">Hello world local!</string>
   <string name="hello_from_loco">Hello from loco local!</string>
+  <string name="no_german_translation">No german translation local!</string>
   <string name="no_online_resource">No online resource local!</string>
 </resources>

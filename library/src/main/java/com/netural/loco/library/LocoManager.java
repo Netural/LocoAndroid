@@ -43,7 +43,7 @@ public class LocoManager {
     public void init(LocoConfig locoConfig) {
         this.locoConfig = locoConfig;
 
-        this.locoLibrary = new LocoLibrary(locoConfig.getApiKey(), locoConfig.getBaseUrl(), locoConfig.getLocalesUrl());
+        this.locoLibrary = new LocoLibrary(locoConfig.getApiKey(), locoConfig.getBaseUrl(), locoConfig.getFallback());
 
         File languageFile = locoLibrary.getLanguageFile(locoConfig.getPath(), locoConfig.getLanguage());
         boolean setLanguage = true;

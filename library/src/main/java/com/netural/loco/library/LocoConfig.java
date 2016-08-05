@@ -13,8 +13,7 @@ public class LocoConfig {
     private long mRefreshTime;
     private String mApiKey;
     private String mBaseUrl;
-    private String mLocalesUrl;
-    private List<String> mParams;
+    private String mFallback;
 
     protected LocoConfig(Builder builder) {
         mLanguage = builder.language;
@@ -23,8 +22,7 @@ public class LocoConfig {
         mRefreshTime = builder.refreshTime;
         mApiKey = builder.apiKey;
         mBaseUrl = builder.baseUrl;
-        mLocalesUrl = builder.localesUrl;
-        mParams = builder.params;
+        mFallback = builder.fallback;
     }
 
     public static void initDefault(LocoConfig locoConfig) {
@@ -62,8 +60,8 @@ public class LocoConfig {
         return mBaseUrl;
     }
 
-    public String getLocalesUrl() {
-        return mLocalesUrl;
+    public String getFallback() {
+        return mFallback;
     }
 
 
@@ -76,8 +74,7 @@ public class LocoConfig {
         private long refreshTime = 3600000; // 1 hour
         private String apiKey = null;
         private String baseUrl = null;
-        private String localesUrl = null;
-        private List<String> params = null;
+        private String fallback = null;
 
         /**
          * The use of this method is not recommended, use @setLocale instead
@@ -119,13 +116,8 @@ public class LocoConfig {
             return this;
         }
 
-        public Builder setAdditionalParameters(List<String> params) {
-            this.params = params;
-            return this;
-        }
-
-        public Builder setLocalesUrl(String localesUrl) {
-            this.localesUrl = localesUrl;
+        public Builder setFallback(String fallback) {
+            this.fallback = fallback;
             return this;
         }
 

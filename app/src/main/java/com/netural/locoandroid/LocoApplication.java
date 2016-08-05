@@ -16,9 +16,8 @@ public class LocoApplication extends Application {
         LocoConfig.initDefault(
                 new LocoConfig.Builder()
                         .setBaseUrl("https://localise.biz:443/api/") // https://localise.biz:443/api/ https://cacheproxy.netural.com/
-                        .setLocalesUrl("locales")
+                        .setFallback("en")
                         .setRefreshTime(-1) // no delay
-                        .setAdditionalParameters(null)
                         .setLocale(Locale.getDefault())
                         .setPath(getFilesDir().getAbsolutePath())
                         .setApiKey(BuildConfig.LOCO_KEY).build());
